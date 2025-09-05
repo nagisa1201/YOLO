@@ -55,9 +55,9 @@ jobs:
             echo "IMAGE_REPO=${{ env.REGISTRY }}/${{ env.REPO_NAME }}" >> "$GITHUB_ENV"
           fi
           echo "BUILD_ARM64=${{ env.BUILD_ARM64 }}" >> "$GITHUB_ENV"  # 设置 BUILD_ARM64 环境变量
-      - name: 检测更改并执行对应 build.bash
+      - name: 检测更改并执行对应 build.sh
         run: |
-          echo "🔍 检测改动的 Dockerfile/.dockerfile/build.bash 文件..."
+          echo "🔍 检测改动的 Dockerfile/.dockerfile/build.sh 文件..."
 
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             RANGE="origin/${{ github.base_ref }}...${{ github.sha }}"
@@ -70,7 +70,7 @@ jobs:
           git fetch origin ${{ github.base_ref }}
 
           CHANGED_FILES=$(git diff --name-only $RANGE | \
-            grep -Ei '(^|/)Dockerfile|(^|/)\.dockerfile|(^|/)build\.bash')
+            grep -Ei '(^|/)Dockerfile|(^|/)\.dockerfile|(^|/)build\.sh')
 
           if [[ -z "$CHANGED_FILES" ]]; then
             echo "✅ 没有相关变更，跳过构建。"
@@ -84,11 +84,11 @@ jobs:
           CHANGED_DIRS=$(echo "$CHANGED_FILES" | xargs -n1 dirname | sort -u)
 
           for dir in $CHANGED_DIRS; do
-            script_path="$dir/build.bash"
+            script_path="$dir/build.sh"
             if [[ -f "$script_path" ]]; then
               echo "🚀 执行 $script_path ..."
               bash "$script_path" --github-action
             else
-              echo "⚠️ $dir 中找不到 build.bash ，跳过。"
+              echo "⚠️ $dir 中找不到 build.sh ，跳过。"
             fi
           done

@@ -76,7 +76,7 @@ USER $USERNAME
 RUN pip install opencv-python imutils pyzmq roslibpy comet_ml
 
 # 可选：设置默认工作目录为源码目录
-WORKDIR /home/${USERNAME}/yolo
+WORKDIR /home/${USERNAME}
 
 # Usage Examples -------------------------------------------------------------------------------------------------------
 # Build and Push
