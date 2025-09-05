@@ -1,0 +1,15 @@
+# 1. 忽略 YOLO 根目录下的 .pt 模型文件（如 yolo11n.pt、yolov8n.pt）
+*.pt
+
+# 2. 忽略 YOLOv11 子目录下的 datasets/、production_run/、weights/ 文件夹
+# （路径对应：YOLO/YOLOv11/datasets/、YOLO/YOLOv11/production_run/、YOLO/YOLOv11/weights/）
+YOLOv11/datasets/
+YOLOv11/production_run/
+YOLOv11/weights/
+
+build/
+log/
+install/
+devel/
+.vscode/start_program
+*.pyc
